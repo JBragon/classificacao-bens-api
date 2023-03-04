@@ -54,7 +54,7 @@ namespace Business.Services
                 {
                     double deltaAmount = i.Amount - lastCurve.Amount;
                     double deltaIncome = i.Income - lastCurve.Income;
-                    angularCoefficient = deltaAmount > 0 ? deltaIncome / deltaAmount : 0;
+                    angularCoefficient = deltaAmount != 0 ? deltaIncome / deltaAmount : 0;
                 }
 
                 EngelsCurve engelsCurve = new EngelsCurve
