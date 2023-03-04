@@ -34,6 +34,13 @@ builder.Services.AddEntityFrameworkMySQL().AddDbContext<DBContext>(options => {
 builder.Services.AddInfrastructure();
 builder.Services.RegisterMapper();
 
+builder.Services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
+
 // Add services to the container.
 builder.Services.AddControllers()
             .AddJsonOptions(x =>
@@ -76,8 +83,12 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
+app.UseRouting();
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCors("CorsPolicy");
 
 app.UseHealthChecks("/hc", new HealthCheckOptions()
 {
@@ -88,9 +99,6 @@ app.UseHealthChecks("/hc", new HealthCheckOptions()
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
 
 app.MapControllers();
 
