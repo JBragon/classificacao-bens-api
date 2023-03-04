@@ -29,6 +29,11 @@ namespace Models.Mapper.Request
                   {
                       context.AddFailure("Não podem possuir coordenadas duplicadas!");
                   }
+
+                  if (list.Any(e => e.Income < 0) || list.Any(e => e.Amount < 0))
+                  {
+                      context.AddFailure("Não podem possuir coordenadas negativas!");
+                  }
               });
 
         }

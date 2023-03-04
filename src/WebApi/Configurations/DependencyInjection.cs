@@ -15,7 +15,6 @@ namespace WebApi.Configurations
 
             //Fluent Validation
             services.AddTransient<IValidator<ProductPost>,  ProductPostValidation>();
-            services.AddTransient<IValidator<EngelsCurvePost>, EngelsCurvePostValidation>();
 
             return services;
         }

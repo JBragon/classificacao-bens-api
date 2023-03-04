@@ -5,7 +5,6 @@ namespace Models.Mapper.Response
     public class EngelsCurveResponse
     {
         public int Id { get; set; }
-        public int ProductId { get; set; }
         public double Income { get; set; }
         public double Amount { get; set; }
         public double AngularCoefficient { get; set; }

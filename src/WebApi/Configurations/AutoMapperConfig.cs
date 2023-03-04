@@ -20,6 +20,7 @@ namespace WebApi.Configurations
                 .ForMember(c => c.CreatedAt, opt => opt.Ignore())
                 .ForMember(c => c.UpdatedAt, opt => opt.Ignore())
                 .ForMember(c => c.Product, opt => opt.Ignore())
+                .ForMember(c => c.ProductId, opt => opt.Ignore())
                 .ReverseMap();
 
             CreateMap<ProductPost, Product>()
