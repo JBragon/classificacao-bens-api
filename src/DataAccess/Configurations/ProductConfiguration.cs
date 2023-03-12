@@ -17,6 +17,11 @@ namespace DataAccess.Configurations
             builder.Property(t => t.Name)
                 .HasColumnName("Name")
                 .HasMaxLength(50)
+                .IsRequired(); 
+            
+            builder.Property(t => t.Registration)
+                .HasColumnName("Registration")
+                .HasMaxLength(50)
                 .IsRequired();            
 
             builder.Property(t => t.CreatedAt)

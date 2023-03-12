@@ -47,7 +47,7 @@ namespace Business.Services
 
             EngelsCurveResponse lastCurve = null;
 
-            inputProduct.EngelsCurvesPost.ForEach(i =>
+            inputProduct.EngelsCurvesPost.OrderBy(i => i.Income).ToList().ForEach(i =>
             {
                 double angularCoefficient = 0;
                 if (lastCurve != null)
