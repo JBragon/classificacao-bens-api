@@ -26,7 +26,7 @@ namespace Business.Services
         {
             var response = base.Search<TOutputModel>(
                filter.GetFilter(),
-               include: source => source.Include(i => i.EngelsCurves),
+               include: source => source.Include(i => i.EngelsCurves.OrderBy(i => i.Income)),
                orderBy: null,
                filter.Page,
                filter.RowsPerPage
