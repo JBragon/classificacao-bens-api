@@ -43,7 +43,27 @@ namespace Business.Services
 
         public ProductResponse InsertAndClassificateProduct(ProductPost inputProduct)
         {
-            var insertedProduct = base.Create<ProductResponse>(inputProduct);
+            Product product = Create<Product>(inputProduct);
+
+            ProductResponse insertedProduct = new ProductResponse
+            {
+                Id = product.Id,
+                Name = product.Name,
+                EngelsCurvesResponse = new List<EngelsCurveResponse>()
+            };
+
+            EngelsCurve firstPoint= new EngelsCurve
+            {
+                ProductId = insertedProduct.Id,
+                Income = 0,
+                Amount = 0,
+                AngularCoefficient = 0,
+                Classification = 0
+            };
+
+            var firstEngelsCurve = _engelsCurveService.Create<EngelsCurveResponse>(firstPoint);
+
+            insertedProduct.EngelsCurvesResponse.Add(firstEngelsCurve);
 
             EngelsCurveResponse lastCurve = null;
 
@@ -72,7 +92,42 @@ namespace Business.Services
 
             });
 
+            AnalisysEngelsCurve(insertedProduct.EngelsCurvesResponse, ref product);
+
+            insertedProduct.Observation = product.Observation;
+
             return insertedProduct;
+        }
+
+        private void AnalisysEngelsCurve(ICollection<EngelsCurveResponse> engelsCurves, ref Product product)
+        {
+            string observation = "";
+
+            var secondItem = engelsCurves.OrderBy(i => i.Income).FirstOrDefault(i => i.Income != 0);
+
+            if (secondItem.Classification.Equals(ProductClassification.StandardOrSuperior) && engelsCurves.Any(i => i.Classification.Equals(ProductClassification.Inferior)))
+            {
+                observation = "Este produto podemos observar que até certo ponto ele é normal/superior e depois ele se torna inferior. Esse caso é explicado pelo seguinte exemplo: <br/>" +
+                    "Uma determinada pessoa consome 5 unidades do chocolate A quando ganhava R$2.000,00 por mês, em seguida começou a consumir 10 unidades desse mesmo produto <br/>" +
+                    "ao receber uma aumento salarial para R$ 3.000,00. Contudo tempos depois ela recebeu um aumento novamente parar R$ 5.000,00 por mês e com esta renda, <br/>" +
+                    "passou a ter acesso ao chocolate B e diminuiu o consumo do chocolate A. No caso o chocolate B é um produto superior ao chocolate A.";
+            }
+            else if (secondItem.Classification.Equals(ProductClassification.StandardOrSuperior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.Inferior)))
+            {
+                observation = "Podemos classificar esse produto como normal/superior, ou seja, quanto maior a renda, maior é a quantidade consumida do mesmo. As propriedades (Renda x Quantidade) tem relação direta!";
+            }
+            else if(secondItem.Classification.Equals(ProductClassification.Inferior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.StandardOrSuperior)))
+            {
+                observation = "Podemos classificar esse produto como inferior, ou seja, quanto maior a renda, menor é a quantidade consumida do mesmo. As propriedades (Renda x Quantidade) tem relação inversa!";
+            }
+            else
+            {
+                observation = "O software não conseguiu analisar esse produto!";
+            }
+
+            product.Observation = observation;
+
+            Update<Product>(product);
         }
     }
 }

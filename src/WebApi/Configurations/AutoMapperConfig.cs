@@ -28,6 +28,7 @@ namespace WebApi.Configurations
                 .ForMember(c => c.CreatedAt, opt => opt.Ignore())
                 .ForMember(c => c.UpdatedAt, opt => opt.Ignore())
                 .ForMember(c => c.EngelsCurves, opt => opt.Ignore())
+                .ForMember(c => c.Observation, opt => opt.Ignore())
                 .ReverseMap()
                 .ForMember(d => d.EngelsCurvesPost, opt => opt.MapFrom(s => s.EngelsCurves));
         }

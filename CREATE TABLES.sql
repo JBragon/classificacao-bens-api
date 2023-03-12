@@ -2,6 +2,7 @@ CREATE TABLE Product (
     Id int NOT NULL AUTO_INCREMENT,
     Name varchar(50) NOT NULL UNIQUE,
     Registration varchar(50) NOT NULL,
+    Observation varchar(2000),
     CreatedAt DATETIME NOT NULL,
     UpdatedAt DATETIME NOT NULL,
     CONSTRAINT PK_Product PRIMARY KEY (Id)
