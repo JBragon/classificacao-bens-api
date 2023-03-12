@@ -93,6 +93,11 @@ namespace Models.Mapper.Request
                   {
                       context.AddFailure("Não podem possuir coordenadas negativas!");
                   }
+
+                  if (list.Any(e => e.Income == 0 && e.Amount == 0))
+                  {
+                      context.AddFailure("Não é necessário informar o ponto (0, 0)!");
+                  }
               });
 
         }

@@ -52,19 +52,6 @@ namespace Business.Services
                 EngelsCurvesResponse = new List<EngelsCurveResponse>()
             };
 
-            EngelsCurve firstPoint= new EngelsCurve
-            {
-                ProductId = insertedProduct.Id,
-                Income = 0,
-                Amount = 0,
-                AngularCoefficient = 0,
-                Classification = 0
-            };
-
-            var firstEngelsCurve = _engelsCurveService.Create<EngelsCurveResponse>(firstPoint);
-
-            insertedProduct.EngelsCurvesResponse.Add(firstEngelsCurve);
-
             EngelsCurveResponse lastCurve = null;
 
             inputProduct.EngelsCurvesPost.OrderBy(i => i.Income).ToList().ForEach(i =>
