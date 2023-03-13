@@ -96,7 +96,7 @@ namespace Business.Services
             {
                 observation = "Este produto podemos observar que até certo ponto ele é normal/superior e depois ele se torna inferior. Esse caso é explicado pelo seguinte exemplo: <br/><br/>" +
                     "Uma determinada pessoa consome 5 unidades do chocolate A quando ganhava R$2.000,00 por mês, em seguida começou a consumir 10 unidades desse mesmo produto" +
-                    "ao receber uma aumento salarial para R$ 3.000,00. Contudo tempos depois ela recebeu um aumento novamente parar R$ 5.000,00 por mês e com esta renda, <br/><br/>" +
+                    "ao receber uma aumento salarial para R$ 3.000,00. Contudo tempos depois ela recebeu um aumento novamente parar R$ 5.000,00 por mês e com esta renda," +
                     "passou a ter acesso ao chocolate B e diminuiu o consumo do chocolate A. No caso o chocolate B é um produto superior ao chocolate A.";
             }
             else if (secondItem.Classification.Equals(ProductClassification.StandardOrSuperior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.Inferior)))
