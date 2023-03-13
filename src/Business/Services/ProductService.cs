@@ -99,11 +99,11 @@ namespace Business.Services
                     "ao receber uma aumento salarial para R$ 3.000,00. Contudo tempos depois ela recebeu um aumento novamente parar R$ 5.000,00 por mês e com esta renda," +
                     "passou a ter acesso ao chocolate B e diminuiu o consumo do chocolate A. No caso o chocolate B é um produto superior ao chocolate A.";
             }
-            else if (secondItem.Classification.Equals(ProductClassification.StandardOrSuperior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.Inferior)))
+            else if (secondItem.Classification.Equals(ProductClassification.StandardOrSuperior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.Inferior) && i.AngularCoefficient != 0))
             {
                 observation = "Podemos classificar esse produto como normal/superior, ou seja, quanto maior a renda, maior é a quantidade consumida do mesmo. As propriedades (Renda x Quantidade) tem relação direta!";
             }
-            else if(secondItem.Classification.Equals(ProductClassification.Inferior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.StandardOrSuperior)))
+            else if(secondItem.Classification.Equals(ProductClassification.Inferior) && !engelsCurves.Any(i => i.Classification.Equals(ProductClassification.StandardOrSuperior) && i.AngularCoefficient != 0))
             {
                 observation = "Podemos classificar esse produto como inferior, ou seja, quanto maior a renda, menor é a quantidade consumida do mesmo. As propriedades (Renda x Quantidade) tem relação inversa!";
             }
