@@ -17,12 +17,12 @@ namespace Models.Mapper.Request
         {
             RuleFor(v => v.Name)
               .NotEmpty()
-              .WithMessage(RuleMessage.Informed("{PropertyName}"))
+              .WithMessage(RuleMessage.Informed("Nome"))
               .MaximumLength(50);
 
             RuleFor(v => v.Registration)
               .NotEmpty()
-              .WithMessage(RuleMessage.Informed("{PropertyName}"))
+              .WithMessage(RuleMessage.Informed("'Matricula"))
               .MaximumLength(50)
               .Custom((registration, context) =>
               {
@@ -79,7 +79,7 @@ namespace Models.Mapper.Request
 
             RuleFor(v => v.EngelsCurvesPost)
               .NotEmpty()
-              .WithMessage(RuleMessage.Informed("{PropertyName}"))
+              .WithMessage(RuleMessage.Informed("Pontos da curva"))
               .Must(list => list.Count >= 2)
               .WithMessage("Deve possuir no mínimo duas coordenadas!")
               .Custom((list, context) =>
